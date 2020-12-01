@@ -1,0 +1,11 @@
+configs:
+- apiKeyAuth:
+    labelSelector:
+      team: infrastructure
+metadata:
+  name: apikey-auth
+  namespace: gloo-system
+  resourceVersion: "2"
+status:
+  reportedBy: gloo
+  state: Accepted

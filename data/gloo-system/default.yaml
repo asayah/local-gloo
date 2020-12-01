@@ -1,0 +1,25 @@
+gloo:
+  xdsBindAddr: 0.0.0.0:9977
+metadata:
+  name: default
+  namespace: gloo-system
+devMode: true
+discoveryNamespace: gloo-system
+extauth:
+  extauthzServerRef:
+    name: extauth
+    namespace: gloo-system
+ratelimitServer:
+  ratelimit_server_ref:
+    name: ratelimit
+    namespace: gloo-system
+directoryArtifactSource:
+  directory: /data/artifact
+directoryConfigSource:
+  directory: /data/config
+directorySecretSource:
+  directory: /data/secret
+refreshRate: 10s
+watchNamespaces:
+- gloo-system
+
