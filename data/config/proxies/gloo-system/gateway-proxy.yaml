@@ -1,0 +1,67 @@
+listeners:
+- bindAddress: '::'
+  bindPort: 8080
+  httpListener:
+    virtualHosts:
+    - domains:
+      - '*'
+      metadata:
+        sources:
+        - kind: '*v1.VirtualService'
+          name: default
+          namespace: gloo-system
+          observedGeneration: 0
+      name: gloo-system.default
+      options:
+        waf:
+          customInterventionMessage: ModSecurity intervention! No scammers allowed!
+          ruleSets:
+          - ruleStr: "# Turn rule engine on\nSecRuleEngine On\nSecRule REQUEST_HEADERS:User-Agent \"scammer\" \"deny,status:403,id:107,phase:1,msg:'blocked scammer'\"      \n"
+      routes:
+      - matchers:
+        - prefix: /
+        metadata:
+          sources:
+          - kind: '*v1.VirtualService'
+            name: default
+            namespace: gloo-system
+            observedGeneration: 0
+        options:
+          headerManipulation:
+            responseHeadersToAdd:
+            - header:
+                key: custom
+                value: user
+        routeAction:
+          single:
+            upstream:
+              name: petstore
+              namespace: gloo-system
+  metadata:
+    sources:
+    - kind: '*v1.Gateway'
+      name: gateway-proxy
+      namespace: gloo-system
+      observedGeneration: 0
+  name: listener-::-8080
+  useProxyProto: false
+- bindAddress: '::'
+  bindPort: 8443
+  httpListener: {}
+  metadata:
+    sources:
+    - kind: '*v1.Gateway'
+      name: gateway-proxy-ssl
+      namespace: gloo-system
+      observedGeneration: 0
+  name: listener-::-8443
+  useProxyProto: false
+metadata:
+  labels:
+    created_by: gateway
+  name: gateway-proxy
+  namespace: gloo-system
+  resourceVersion: "59"
+status:
+  reportedBy: gloo
+  state: Accepted

@@ -1,0 +1,39 @@
+metadata:
+  name: default
+  namespace: gloo-system
+  resourceVersion: "24"
+status:
+  reportedBy: gateway
+  state: Accepted
+  subresourceStatuses:
+    '*v1.Proxy.gloo-system.gateway-proxy':
+      reportedBy: gloo
+      state: Accepted
+virtualHost:
+  domains:
+  - '*'
+  options:
+    waf:
+      customInterventionMessage: 'ModSecurity intervention! No scammers allowed!'
+      ruleSets:
+      - ruleStr: |
+          # Turn rule engine on
+          SecRuleEngine On
+          SecRule REQUEST_HEADERS:User-Agent "scammer" "deny,status:403,id:107,phase:1,msg:'blocked scammer'"      
+  routes:
+  - matchers:
+    - prefix: /
+    routeAction:
+      single:
+        upstream:
+          name: petstore
+          namespace: gloo-system
+    options:
+      headerManipulation:
+        # add headers to all responses 
+        # returned by this route
+        responseHeadersToAdd:
+        - header:
+            key: custom
+            value: user   
+
