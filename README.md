@@ -33,7 +33,7 @@ before installing Gloo Edge data plane, update the file: data/envoy-config.yaml
 
 ```bash
 export LICENSE_KEY='your license key'
-export GLOO_ADDR='gloo control plane address from previous setep'
+export GLOO_ADDR='gloo control plane address from previous step'
 docker-compose -f gloo-edge-control-plane.yaml up
 ```
 
