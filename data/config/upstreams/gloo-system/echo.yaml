@@ -1,5 +1,5 @@
 metadata:
-  name: petstore
+  name: echo
   namespace: gloo-system
   resourceVersion: "4"
 static:
