@@ -4,8 +4,8 @@ metadata:
   resourceVersion: "4"
 static:
   hosts:
-  - addr: petstore
-    port: 8080
+  - addr: postman-echo.com
+    port: 80
 status:
   reportedBy: gloo
   state: Accepted

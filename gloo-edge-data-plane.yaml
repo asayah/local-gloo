@@ -1,29 +1,5 @@
 version: '3'
 services:
-  gloo:
-    image: quay.io/solo-io/gloo-ee:1.5.11
-    environment:
-    - START_STATS_SERVER=true
-    - GLOO_LICENSE_KEY=$LICENSE_KEY
-    working_dir: /
-    command:
-    - "--dir=/data/"
-    volumes:
-    - ./data:/data/
-    ports:
-    - "9977:9977"
-    - "9091:9091"
-    restart: always
-
-  gateway:
-    image: "${GLOO_REPO:-quay.io/solo-io}/gateway:${GLOO_VERSION:-1.5.11}"
-    working_dir: /
-    command:
-    - "--dir=/data/"
-    volumes:
-    - ./data:/data/
-    restart: always
-
   gateway-proxy:
     image: quay.io/solo-io/gloo-ee-envoy-wrapper:1.5.11
     entrypoint: ["envoy"]

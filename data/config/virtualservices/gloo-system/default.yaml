@@ -26,7 +26,7 @@ virtualHost:
     routeAction:
       single:
         upstream:
-          name: petstore
+          name: echo
           namespace: gloo-system
     options:
       headerManipulation:
