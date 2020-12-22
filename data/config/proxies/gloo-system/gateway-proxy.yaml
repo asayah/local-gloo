@@ -35,7 +35,7 @@ listeners:
         routeAction:
           single:
             upstream:
-              name: petstore
+              name: echo
               namespace: gloo-system
   metadata:
     sources:
@@ -61,7 +61,7 @@ metadata:
     created_by: gateway
   name: gateway-proxy
   namespace: gloo-system
-  resourceVersion: "59"
+  resourceVersion: "63"
 status:
   reportedBy: gloo
   state: Accepted

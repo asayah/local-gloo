@@ -42,7 +42,7 @@ services:
     command: ["-c", "sleep 10 && /usr/local/bin/extauth"]
     environment:
     - SERVICE_NAME=ext-auth
-    - GLOO_ADDRESS="${GLOO_ADDR:-gloo}:9977"
+    - GLOO_ADDRESS=gloo:9977
     - SERVER_PORT=8083
     - GLOO_LICENSE_KEY=$LICENSE_KEY
     - START_STATS_SERVER=true
@@ -53,7 +53,7 @@ services:
   ratelimit:
     image: quay.io/solo-io/rate-limit-ee:1.5.11
     environment:
-    - GLOO_ADDRESS="${GLOO_ADDR:-gloo}:9977"
+    - GLOO_ADDRESS=gloo:9977
     - REDIS_URL=redis:6379
     - REDIS_SOCKET_TYPE=tcp
     - GLOO_LICENSE_KEY=$LICENSE_KEY
