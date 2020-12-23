@@ -13,6 +13,10 @@ virtualHost:
   domains:
   - '*'
   options:
+    extauth:
+      configRef:
+        name: opa-auth
+        namespace: gloo-system
     waf:
       customInterventionMessage: 'ModSecurity intervention! No scammers allowed!'
       ruleSets:

@@ -1,0 +1,13 @@
+configs:
+- opaAuth:
+    modules:
+    - name: opa
+      namespace: gloo-system
+    query: data.test.allow == true
+metadata:
+  name: opa-auth
+  namespace: gloo-system
+  resourceVersion: "5"
+status:
+  reportedBy: gloo
+  state: Accepted

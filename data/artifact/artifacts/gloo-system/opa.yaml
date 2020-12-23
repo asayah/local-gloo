@@ -1,0 +1,12 @@
+data:
+  opa.rego: |-
+    package test
+
+    default allow = false
+    allow {
+        startswith(input.http_request.path, "/request")
+        input.http_request.method == "GET"
+    }
+metadata:
+  name: opa
+  namespace: gloo-system
