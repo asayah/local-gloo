@@ -1,7 +1,11 @@
 metadata:
   name: default
   namespace: gloo-system
-  resourceVersion: "24"
+  resourceVersion: "28"
+sslConfig:
+  sslFiles:
+    tlsCert: /opt/gloo/tls.crt
+    tlsKey: /opt/gloo/tls.key
 status:
   reportedBy: gateway
   state: Accepted
@@ -18,26 +22,20 @@ virtualHost:
         name: opa-auth
         namespace: gloo-system
     waf:
-      customInterventionMessage: 'ModSecurity intervention! No scammers allowed!'
+      customInterventionMessage: ModSecurity intervention! No scammers allowed!
       ruleSets:
-      - ruleStr: |
-          # Turn rule engine on
-          SecRuleEngine On
-          SecRule REQUEST_HEADERS:User-Agent "scammer" "deny,status:403,id:107,phase:1,msg:'blocked scammer'"      
+      - ruleStr: "# Turn rule engine on\nSecRuleEngine On\nSecRule REQUEST_HEADERS:User-Agent \"scammer\" \"deny,status:403,id:107,phase:1,msg:'blocked scammer'\"      \n"
   routes:
   - matchers:
     - prefix: /
+    options:
+      headerManipulation:
+        responseHeadersToAdd:
+        - header:
+            key: custom
+            value: user
     routeAction:
       single:
         upstream:
           name: echo
           namespace: gloo-system
-    options:
-      headerManipulation:
-        # add headers to all responses 
-        # returned by this route
-        responseHeadersToAdd:
-        - header:
-            key: custom
-            value: user   
-

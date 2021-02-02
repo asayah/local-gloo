@@ -30,6 +30,8 @@ services:
     command: ["-c", "/config/envoy.yaml", "--disable-hot-restart"]
     volumes:
     - ./data/envoy-config.yaml:/config/envoy.yaml:ro
+    - ./data/tls.crt:/opt/gloo/tls.crt:ro
+    - ./data/tls.key:/opt/gloo/tls.key:ro
     ports:
     - "8080:8080"
     - "8443:8443"

@@ -6,7 +6,7 @@ metadata:
     origin: default
   name: gateway-proxy
   namespace: gloo-system
-  resourceVersion: "9"
+  resourceVersion: "13"
 proxyNames:
 - gateway-proxy
 status:

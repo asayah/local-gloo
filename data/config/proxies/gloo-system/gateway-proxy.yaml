@@ -1,6 +1,17 @@
 listeners:
 - bindAddress: '::'
   bindPort: 8080
+  httpListener: {}
+  metadata:
+    sources:
+    - kind: '*v1.Gateway'
+      name: gateway-proxy
+      namespace: gloo-system
+      observedGeneration: 0
+  name: listener-::-8080
+  useProxyProto: false
+- bindAddress: '::'
+  bindPort: 8443
   httpListener:
     virtualHosts:
     - domains:
@@ -44,28 +55,21 @@ listeners:
   metadata:
     sources:
     - kind: '*v1.Gateway'
-      name: gateway-proxy
-      namespace: gloo-system
-      observedGeneration: 0
-  name: listener-::-8080
-  useProxyProto: false
-- bindAddress: '::'
-  bindPort: 8443
-  httpListener: {}
-  metadata:
-    sources:
-    - kind: '*v1.Gateway'
       name: gateway-proxy-ssl
       namespace: gloo-system
       observedGeneration: 0
   name: listener-::-8443
+  sslConfigurations:
+  - sslFiles:
+      tlsCert: /opt/gloo/tls.crt
+      tlsKey: /opt/gloo/tls.key
   useProxyProto: false
 metadata:
   labels:
     created_by: gateway
   name: gateway-proxy
   namespace: gloo-system
-  resourceVersion: "67"
+  resourceVersion: "80"
 status:
   reportedBy: gloo
   state: Accepted
